@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_profiles",
+  "info": {
+    "singularName": "company-profile",
+    "pluralName": "company-profiles",
+    "displayName": "company profile"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "address": {
+      "type": "richtext",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "location": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "qr_code": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

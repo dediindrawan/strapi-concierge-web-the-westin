@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "employee_details",
+  "info": {
+    "singularName": "employee-detail",
+    "pluralName": "employee-details",
+    "displayName": "employee detail"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "job_position": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "avatar": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "extra_links",
+  "info": {
+    "singularName": "extra-link",
+    "pluralName": "extra-links",
+    "displayName": "extra link"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "path_name": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "hyperlink": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}

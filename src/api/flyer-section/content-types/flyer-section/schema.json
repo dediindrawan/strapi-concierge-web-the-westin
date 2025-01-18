@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "flyer_sections",
+  "info": {
+    "singularName": "flyer-section",
+    "pluralName": "flyer-sections",
+    "displayName": "flyer section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "background_path": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "hyperlink": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}
