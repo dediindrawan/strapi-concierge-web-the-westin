@@ -4,7 +4,8 @@
   "info": {
     "singularName": "category",
     "pluralName": "categories",
-    "displayName": "category"
+    "displayName": "category",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,12 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "gallery_details": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::gallery-detail.gallery-detail",
+      "inversedBy": "categories"
     }
   }
 }

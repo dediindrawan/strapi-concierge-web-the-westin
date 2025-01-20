@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
+    description: '';
     displayName: 'category';
     pluralName: 'categories';
     singularName: 'category';
@@ -386,6 +387,10 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    gallery_details: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::gallery-detail.gallery-detail'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -514,6 +519,7 @@ export interface ApiExtraLinkExtraLink extends Struct.CollectionTypeSchema {
 export interface ApiFieldField extends Struct.CollectionTypeSchema {
   collectionName: 'fields';
   info: {
+    description: '';
     displayName: 'field';
     pluralName: 'fields';
     singularName: 'field';
@@ -526,6 +532,14 @@ export interface ApiFieldField extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     field_name: Schema.Attribute.String;
+    gallery_details: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::gallery-detail.gallery-detail'
+    >;
+    info_details: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::info-detail.info-detail'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::field.field'> &
       Schema.Attribute.Private;
@@ -577,6 +591,7 @@ export interface ApiGalleryDetailGalleryDetail
   extends Struct.CollectionTypeSchema {
   collectionName: 'gallery_details';
   info: {
+    description: '';
     displayName: 'gallery detail';
     pluralName: 'gallery-details';
     singularName: 'gallery-detail';
@@ -585,9 +600,19 @@ export interface ApiGalleryDetailGalleryDetail
     draftAndPublish: true;
   };
   attributes: {
+    categories: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::category.category'
+    >;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    fields: Schema.Attribute.Relation<'manyToMany', 'api::field.field'>;
+    info_details: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::info-detail.info-detail'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -655,6 +680,11 @@ export interface ApiInfoDetailInfoDetail extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    field: Schema.Attribute.Relation<'manyToOne', 'api::field.field'>;
+    gallery_detail: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::gallery-detail.gallery-detail'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -665,6 +695,230 @@ export interface ApiInfoDetailInfoDetail extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiIntroSectionIntroSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'intro_sections';
+  info: {
+    displayName: 'intro section';
+    pluralName: 'intro-sections';
+    singularName: 'intro-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::intro-section.intro-section'
+    > &
+      Schema.Attribute.Private;
+    poster_path: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    sub_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiJumbotronSectionJumbotronSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'jumbotron_sections';
+  info: {
+    displayName: 'jumbotron section';
+    pluralName: 'jumbotron-sections';
+    singularName: 'jumbotron-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    background_path: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::jumbotron-section.jumbotron-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
+  collectionName: 'rooms';
+  info: {
+    displayName: 'room';
+    pluralName: 'rooms';
+    singularName: 'room';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::room.room'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sub_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiceDetailServiceDetail
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_details';
+  info: {
+    displayName: 'service detail';
+    pluralName: 'service-details';
+    singularName: 'service-detail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-detail.service-detail'
+    > &
+      Schema.Attribute.Private;
+    poster_path: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    price: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiceSectionServiceSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_sections';
+  info: {
+    displayName: 'service section';
+    pluralName: 'service-sections';
+    singularName: 'service-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-section.service-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sub_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTestimonialSectionTestimonialSection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'testimonial_sections';
+  info: {
+    displayName: 'testimonial section';
+    pluralName: 'testimonial-sections';
+    singularName: 'testimonial-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::testimonial-section.testimonial-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sub_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1189,6 +1443,12 @@ declare module '@strapi/strapi' {
       'api::gallery-detail.gallery-detail': ApiGalleryDetailGalleryDetail;
       'api::gallery-section.gallery-section': ApiGallerySectionGallerySection;
       'api::info-detail.info-detail': ApiInfoDetailInfoDetail;
+      'api::intro-section.intro-section': ApiIntroSectionIntroSection;
+      'api::jumbotron-section.jumbotron-section': ApiJumbotronSectionJumbotronSection;
+      'api::room.room': ApiRoomRoom;
+      'api::service-detail.service-detail': ApiServiceDetailServiceDetail;
+      'api::service-section.service-section': ApiServiceSectionServiceSection;
+      'api::testimonial-section.testimonial-section': ApiTestimonialSectionTestimonialSection;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

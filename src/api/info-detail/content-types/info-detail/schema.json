@@ -15,6 +15,18 @@
       "type": "string",
       "unique": true,
       "required": true
+    },
+    "field": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::field.field",
+      "inversedBy": "info_details"
+    },
+    "gallery_detail": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::gallery-detail.gallery-detail",
+      "inversedBy": "info_details"
     }
   }
 }

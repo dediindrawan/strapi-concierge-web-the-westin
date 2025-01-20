@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "intro_sections",
+  "info": {
+    "singularName": "intro-section",
+    "pluralName": "intro-sections",
+    "displayName": "intro section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "sub_heading": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "poster_path": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

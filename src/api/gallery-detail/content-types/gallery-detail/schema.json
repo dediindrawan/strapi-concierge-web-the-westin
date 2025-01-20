@@ -4,7 +4,8 @@
   "info": {
     "singularName": "gallery-detail",
     "pluralName": "gallery-details",
-    "displayName": "gallery detail"
+    "displayName": "gallery detail",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,12 +13,35 @@
   "pluginOptions": {},
   "attributes": {
     "thumbnail_path": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "gallery_details"
+    },
+    "fields": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::field.field",
+      "mappedBy": "gallery_details"
+    },
+    "info_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::info-detail.info-detail",
+      "mappedBy": "gallery_detail"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
     }
   }
 }
